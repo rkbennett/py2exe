@@ -93,6 +93,8 @@ jobs:
 
       - name: Build
         run: |
+          pwd
+          dir
           build.cmd
 
       - name: Prepare for deployment
