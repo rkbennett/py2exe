@@ -50,10 +50,11 @@ jobs:
           python -m pip install -U cachetools pefile
 
       - name: Build
+        shell: cmd
         run: |
-          pwd
-          dir
           .\build.cmd
+          dir
+
 
       - name: Deploy
         uses: actions/upload-artifact@v2
