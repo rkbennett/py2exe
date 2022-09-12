@@ -93,7 +93,7 @@ jobs:
 
       - name: Build
         run: |
-          python setup.py bdist_wheel
+          build.cmd
 
       - name: Prepare for deployment
         run: |
@@ -108,68 +108,6 @@ jobs:
       - name: Deploy
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.WHEELNAME }}
+          name: build/_memimport.obj
           path: |
-            dist/${{ env.WHEELNAME }}
-
-  test:
-    needs: [matrix, build]
-    name: Test
-    runs-on: windows-2019
-    strategy:
-      matrix:
-        cfg: ${{ fromJson(needs.matrix.outputs.matrix) }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.cfg.python-version }}
-          architecture: ${{ matrix.cfg.python-arch }}
-
-      - name: Check Python install
-        run: |
-          which python
-          python --version
-          python -c "import struct; print(struct.calcsize('P') * 8)"
-          which pip
-          pip --version
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install -U pip setuptools wheel
-
-      - name: Prepare for test
-        run: |
-          $ver = (findstr __version__ .\py2exe\version.py).split("'")[1]
-          echo $ver
-          echo "VER=$ver" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          $wheelname = python .github\helpers\get_wheel_name.py $ver
-          echo $wheelname
-          echo "WHEELNAME=$wheelname" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.WHEELNAME }}
-
-      - name: Install
-        run: |
-          dir
-          pip install ${{ env.WHEELNAME }}
-          python -c "import py2exe"
-
-      - name: Test (synthetic)
-        run: |
-          cd tests
-          python test_modulefinder.py
-
-      - name: Test (functional)
-        if: ${{ matrix.cfg.run-tests == 'true' }}
-        run: |
-          cd tests
-          cd functional
-          python .\enable_tests.py
-          .\runner.ps1
+            build/_memimport.obj
