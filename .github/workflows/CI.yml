@@ -95,7 +95,7 @@ jobs:
         run: |
           pwd
           dir
-          build.cmd
+          .\build.cmd
 
       - name: Prepare for deployment
         run: |
