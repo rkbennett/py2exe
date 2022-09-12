@@ -53,8 +53,6 @@ jobs:
         shell: cmd
         run: |
           .\build.cmd
-          dir
-
 
       - name: Deploy
         uses: actions/upload-artifact@v2
