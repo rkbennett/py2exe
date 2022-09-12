@@ -50,7 +50,6 @@ jobs:
           python -m pip install -U cachetools pefile
 
       - name: Build
-        shell: cmd
         run: |
           .\build.cmd
 
