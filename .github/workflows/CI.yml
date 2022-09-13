@@ -59,4 +59,4 @@ jobs:
         with:
           name: _memimport.obj
           path: |
-            _memimport.obj
+            D:\a\py2exe\py2exe\build\temp.win-amd64-cpython-310\Release\source\_memimporter.obj
