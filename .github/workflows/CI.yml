@@ -51,6 +51,7 @@ jobs:
 
       - name: Build
         run: |
+          python setup.py bdist_wheel
           .\build.cmd
 
       - name: Deploy
