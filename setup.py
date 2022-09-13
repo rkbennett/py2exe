@@ -6,6 +6,7 @@
 import os
 import platform
 import sys
+from distutils.core import Extension
 
 if platform.system() != 'Windows':
     raise RuntimeError("This package requires Windows")
@@ -139,9 +140,9 @@ interpreters = [run, run_w, resource_dll,
 if __name__ == "__main__":
     cmdclass = {'build_interpreters': BuildInterpreters}
 
-    setup(name="py2exe",
+    setup(name="_memimporter",
           version=open("py2exe/version.py").read().split("'")[1],
-          description="Build standalone executables for Windows",
+          description="Import pyds for Windows",
           long_description=open("README.md").read(),
           long_description_content_type="text/markdown",
           author="Thomas Heller",
@@ -181,8 +182,9 @@ if __name__ == "__main__":
           entry_points = {
               'console_scripts': ['build_exe = py2exe.build_exe:main'],
               },
-          interpreters = interpreters,
-          py_modules=['zipextimporter'],
-          packages=['py2exe', 'py2exe.vendor'],
+          #interpreters = interpreters,
+          #py_modules=['zipextimporter'],
+          #packages=['py2exe', 'py2exe.vendor'],
           package_data={'py2exe':['MIT-License.txt', 'MPL2-License.txt']},
+          ext_modules=[Extension("_memimporter",["source/_memimporter.c"])]
           )
