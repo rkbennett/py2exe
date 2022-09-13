@@ -140,7 +140,7 @@ interpreters = [run, run_w, resource_dll,
 if __name__ == "__main__":
     cmdclass = {'build_interpreters': BuildInterpreters}
 
-    setup(name="_memimporter",
+    setup(name="memimporter",
           version=open("py2exe/version.py").read().split("'")[1],
           description="Import pyds for Windows",
           long_description=open("README.md").read(),
