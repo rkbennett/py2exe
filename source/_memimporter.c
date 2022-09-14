@@ -282,7 +282,7 @@ static struct PyModuleDef moduledef = {
 	NULL, /* m_free */
 };
 
-PyMODINIT_FUNC PyInit__memimporter(void)
+extern "C" PyMODINIT_FUNC PyInit__memimporter(void)
 {
 	return PyModule_Create(&moduledef);
 }
