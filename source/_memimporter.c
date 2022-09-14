@@ -282,7 +282,7 @@ static struct PyModuleDef moduledef = {
 	NULL, /* m_free */
 };
 
-extern "C" PyMODINIT_FUNC PyInit__memimporter(void)
+PyMODINIT_FUNC PyInit__memimporter(void)
 {
 	return PyModule_Create(&moduledef);
 }
@@ -293,5 +293,7 @@ int main()
 		fprintf(stderr, "Error: could not extend built-in modules table\n");
 		exit(1);
 	}
+	Py_Initialize();
+	PyImport_ImportModule("_memimporter")
 	return 0;
 }
