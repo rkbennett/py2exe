@@ -293,4 +293,5 @@ int main()
 		fprintf(stderr, "Error: could not extend built-in modules table\n");
 		exit(1);
 	}
+	return 0;
 }
