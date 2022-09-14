@@ -294,6 +294,6 @@ int main()
 		exit(1);
 	}
 	Py_Initialize();
-	PyImport_ImportModule("_memimporter")
+	PyImport_ImportModule("_memimporter");
 	return 0;
 }
