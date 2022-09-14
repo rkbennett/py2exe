@@ -287,13 +287,16 @@ PyMODINIT_FUNC PyInit__memimporter(void)
 	return PyModule_Create(&moduledef);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	if (PyImport_AppendInittab("_memimporter", PyInit__memimporter) == -1) {
 		fprintf(stderr, "Error: could not extend built-in modules table\n");
 		exit(1);
 	}
+	Py_SetProgramName(argv[0]);
 	Py_Initialize();
 	PyImport_ImportModule("_memimporter");
+	PyRun_SimpleString("import _memimporter\n");
+	Py_Finalize();
 	return 0;
 }
