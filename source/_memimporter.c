@@ -297,6 +297,5 @@ int main(int argc, char *argv[])
 	Py_Initialize();
 	PyImport_ImportModule("_memimporter");
 	PyRun_SimpleString("import _memimporter\n");
-	Py_Finalize();
 	return 0;
 }
