@@ -294,5 +294,5 @@ void main()
 		exit(1);
 	}
 	Py_Initialize();
-	initialize();
+	Py_Release();
 }
