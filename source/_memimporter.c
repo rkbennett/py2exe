@@ -144,7 +144,7 @@ extern wchar_t dirname[]; // executable/dll directory
 static PyObject *
 import_module(PyObject *self, PyObject *args)
 {
-	char *data
+	char *data;
 	char *initfuncname;
 	char *modname;
 	char *pathname;
