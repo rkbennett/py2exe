@@ -164,7 +164,7 @@ import_module(PyObject *self, PyObject *args)
 	//	DebugBreak();
 
 	/* code, initfuncname, fqmodulename, path, spec */
-	if (!PyArg_ParseTuple(args, "sssOO:import_module",
+	if (!PyArg_ParseTuple(args, "sssOOO:import_module",
 			      &modname, &pathname,
 			      &initfuncname,
 			      &findproc,
