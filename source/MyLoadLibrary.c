@@ -206,12 +206,7 @@ HMODULE MyGetModuleHandle(LPCSTR name)
 
 HMODULE MyLoadLibrary(LPCSTR name, void *bytes, size_t size, void *userdata)
 {
-	if (userdata) {
-		HCUSTOMMODULE mod = _LoadLibrary(name, userdata);
-		dprintf("MyLoadLibrary-userdata(%s) -> %p\n\n", name, mod);
-		if (mod)
-			return mod;
-	} else if (bytes) {
+	if (bytes) {
 		HCUSTOMMODULE mod = MemoryLoadLibraryEx(bytes, size,
 							MemoryDefaultAlloc, MemoryDefaultFree,
 							_LoadLibrary,
@@ -222,6 +217,12 @@ HMODULE MyLoadLibrary(LPCSTR name, void *bytes, size_t size, void *userdata)
 		if (mod) {
 			LIST *lib = _AddMemoryModule(name, mod);
 			return lib->module;
+		}
+	} else if (userdata) {
+		HCUSTOMMODULE mod = _LoadLibrary(name, userdata);
+		dprintf("MyLoadLibrary-userdata(%s) -> %p\n\n", name, mod);
+		if (mod) {
+			return mod;
 		}
 	}
 	return LoadLibraryA(name);

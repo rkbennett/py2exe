@@ -144,6 +144,7 @@ extern wchar_t dirname[]; // executable/dll directory
 static PyObject *
 import_module(PyObject *self, PyObject *args)
 {
+	char *data
 	char *initfuncname;
 	char *modname;
 	char *pathname;
@@ -167,7 +168,7 @@ import_module(PyObject *self, PyObject *args)
 			      &modname, &pathname,
 			      &initfuncname,
 			      &findproc,
-				  &spec))
+				  &spec, &data))
 		return NULL;
 
 	PyObject *m = PyModule_New(modname);
@@ -206,7 +207,7 @@ import_module(PyObject *self, PyObject *args)
 	res = SetDllDirectoryW(dirname); // Add a directory to the search path
 	#endif
 
-	hmem = MyLoadLibrary(pathname, NULL, 0, findproc);
+	hmem = MyLoadLibrary(pathname, data, sizeof(data), findproc);
 	if (res)
 		SetDllDirectory(NULL); // restore the default dll directory search path
 	_My_DeactivateActCtx(cookie);
@@ -264,7 +265,7 @@ get_verbose_flag(PyObject *self, PyObject *args)
 
 static PyMethodDef methods[] = {
 	{ "import_module", import_module, METH_VARARGS,
-	  "import_module(modname, pathname, initfuncname, finder, spec) -> module" },
+	  "import_module(modname, pathname, initfuncname, finder, spec, data) -> module" },
 	{ "get_verbose_flag", get_verbose_flag, METH_NOARGS,
 	  "Return the Py_Verbose flag" },
 	{ NULL, NULL },		/* Sentinel */
